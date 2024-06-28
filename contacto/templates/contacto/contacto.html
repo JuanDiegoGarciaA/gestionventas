@@ -1,0 +1,40 @@
+{% extends "ProyectoWebApp/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+   <div class="contenedorFormulario">
+    {% if "valido" in request.GET %}
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="close-modal">&times;</span>
+                <p>Información enviada correctamente</p>
+            </div>
+        </div>
+    {% endif %}
+        <form action="" method="POST" style="text-align: center;">
+            {% csrf_token %}
+            <table>{{miFormulario.as_table}}</table>
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (document.getElementById('modal')) {
+                var modal = document.getElementById('modal');
+                modal.style.display = 'block';
+                
+                setTimeout(function() {
+                    modal.style.display = 'none';
+                }, 3000);
+            }
+        
+            document.getElementById('close-modal').addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+        });
+    </script>
+
+{% endblock %}
